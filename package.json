@@ -1,0 +1,111 @@
+{
+  "name": "huggingface-brain",
+  "version": "1.0.0",
+  "description": "Chat with thousand of AIs using hugging face",
+  "type": "commonjs",
+  "main": "./src/main.js",
+  "icon": "icon.png",
+  "engines": {
+    "node": ">= 18.12 <19",
+    "hubai": ">= 0.1.0-alpha.13 || 1.x"
+  },
+  "scripts": {
+    "start": "nodemon ./src/devServer.ts",
+    "clean": "rimraf coverage build tmp",
+    "prebuild": "npm run lint",
+    "build": "tsc -p tsconfig.json",
+    "build:watch": "tsc -w -p tsconfig.json",
+    "package": "hubai brain package",
+    "package:dev": "hubai brain package --selfHosted=http://127.0.0.1:1367",
+    "lint": "eslint . --ext .ts --ext .mts",
+    "test": "jest --coverage",
+    "prettier": "prettier --config .prettierrc --write .",
+    "test:watch": "jest --watch"
+  },
+  "brain": {
+    "name": "huggingface",
+    "displayName": "Hugging Face",
+    "description": "Chat with thousand of AIs using hugging face",
+    "capabilities": [
+      "conversation",
+      "voice_transcription",
+      "image_generation"
+    ],
+    "settingsMap": [
+      {
+        "displayName": "Access Token",
+        "description": "Your HuggingFace access token",
+        "name": "accessToken",
+        "type": "string",
+        "isSecret": true,
+        "required": true
+      },
+      {
+        "displayName": "Text Model",
+        "description": "Text model to use for conversation",
+        "name": "textModel",
+        "type": "string",
+        "required": true,
+        "scope": "chat_overridable"
+      },
+      {
+        "displayName": "Voice Transcription Model",
+        "description": "Model to use for voice transcription",
+        "name": "voiceTranscriptionModel",
+        "type": "string",
+        "defaultValue": "facebook/wav2vec2-large-960h-lv60-self",
+        "scope": "chat_overridable",
+        "capabilities": [
+          "voice_transcription"
+        ]
+      },
+      {
+        "displayName": "Image Generation Model",
+        "description": "Model to use for image generation",
+        "name": "imageGenerationModel",
+        "type": "string",
+        "defaultValue": "stabilityai/stable-diffusion-2",
+        "scope": "chat_overridable",
+        "capabilities": [
+          "image_generation"
+        ]
+      }
+    ]
+  },
+  "publisher": "hubai",
+  "devDependencies": {
+    "@types/jest": "~29.5",
+    "@types/node": "~18",
+    "@typescript-eslint/eslint-plugin": "~5.59",
+    "@typescript-eslint/parser": "~5.59",
+    "body-parser": "^1.20.2",
+    "eslint": "~8.38",
+    "eslint-config-prettier": "~8.8",
+    "eslint-plugin-jest": "~27.2",
+    "express": "^4.18.2",
+    "jest": "~29.5",
+    "nodemon": "^3.0.1",
+    "prettier": "~2.8",
+    "rimraf": "~5.0",
+    "ts-api-utils": "~0.0.44",
+    "ts-jest": "~29.1",
+    "ts-node": "^10.9.1",
+    "typescript": "~5.0"
+  },
+  "author": "hubai",
+  "keywords": [
+    "huggingface"
+  ],
+  "categories": [
+    "brain"
+  ],
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@hubai/brain-sdk": "^1.0.9",
+    "@huggingface/inference": "^2.6.4",
+    "tslib": "~2.5"
+  },
+  "volta": {
+    "node": "18.12.1"
+  }
+}
